@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\EconomicManagementAPP",
+    "\\EconomicManagementAPP\\bin",
+    "\\EconomicManagementAPP\\bin\\Debug",
+    "\\EconomicManagementAPP\\bin\\Release",
+    "\\EconomicManagementAPP\\bin\\Release\\net6.0",
+    "\\EconomicManagementAPP\\Controllers",
+    "\\EconomicManagementAPP\\Services",
+    "\\EconomicManagementAPP\\Views",
+    "\\EconomicManagementAPP\\Views\\AccountTypes"
+  ],
+  "SelectedNode": "\\EconomicManagementAPP.sln",
+  "PreviewInSolutionExplorer": false
+}

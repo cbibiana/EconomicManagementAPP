@@ -1,0 +1,34 @@
+﻿
+contenedor-totales{
+    display : flex;
+    justify-content: space-around;
+    font-size: 26px;
+    text-align: center;
+}
+.active{
+    color: blue;
+}
+
+.passive{
+    color: red;
+}
+
+.accordion-Accounts button {
+    color: black !important;
+    font-size: 20px;
+}
+
+.accordion-Accounts button > span {
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+}
+
+.accordion-Accounts ul li {
+    display: flex;
+    justify-content: space-between;
+}
+
+.accordion-Accounts .accordion-collapse {
+    font-size:18px;
+}
