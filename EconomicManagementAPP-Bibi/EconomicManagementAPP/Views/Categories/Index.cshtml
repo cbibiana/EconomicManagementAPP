@@ -22,9 +22,7 @@
         {
             <tr>
                 <td>
-                    <input type="hidden" value="@categories.Id" class="ids" />
                     <a class="btn btn-primary" asp-action="Modify" asp-route-id="@categories.Id">Modify</a>
-                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@categories.Id">Delete</a>
                 </td>
                 <td>
                     @categories.Name

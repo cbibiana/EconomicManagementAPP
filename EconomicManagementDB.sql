@@ -1,3 +1,7 @@
+USE master
+GO
+drop database if exists EconomicManagementDB
+
 CREATE DATABASE [EconomicManagementDB]
 GO
 USE [EconomicManagementDB]
@@ -44,15 +48,17 @@ CREATE TABLE [Transactions](
 	[UserId] [int] NOT NULL,
 	[TransactionDate] [datetime] NOT NULL,
 	[Total] [decimal](18, 2) NOT NULL,
-	[OperationTypeId] [int] NOT NULL,
 	[Description] [nvarchar](1000) NULL,
 	[AccountId] [int] NOT NULL,
 	[CategoryId] [int] NOT NULL,
     CONSTRAINT [FK_TransactionsUsers] FOREIGN KEY (UserId) REFERENCES Users(Id),
-	CONSTRAINT [FK_TransactiosOperationType] FOREIGN KEY (OperationTypeId) REFERENCES OperationTypes(Id),
 	CONSTRAINT [FK_TransactionsAccount] FOREIGN KEY (AccountId) REFERENCES Accounts(Id),
 	CONSTRAINT [FK_TransactionsCategories] FOREIGN KEY (CategoryId) REFERENCES Categories(Id)
 )
+
+INSERT INTO OperationTypes Values
+('INGRESS'),
+('EGRESS');
 
 -- =============================================
 --Procedimientos almacemados
@@ -170,7 +176,7 @@ BEGIN
 	-- SET NOCOUNT ON added to prevent extra result sets from
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
-    --Revertir transaciciÃ³n anterior
+    --Revertir transacición anterior
 
 	UPDATE Accounts
 	SET Balance -= @TotalPrevious
@@ -188,3 +194,36 @@ BEGIN
 	WHERE Id = Id;
 END
 
+-- =============================================
+--CreateUsers
+-- =============================================
+CREATE PROCEDURE [dbo].[UsersNew_Insertar]
+  @UserId int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	DECLARE @Effective nvarchar(50) = 'Efectivo';
+	DECLARE @AccountBank nvarchar(50) = 'Cuentas de banco';
+	DECLARE @Cards nvarchar(50) = 'Tarjetas';
+
+	INSERT INTO AccountTypes (Name, UserId, OrderAccount )
+	VALUES (@Effective, @UserId, 1),
+    (@AccountBank, @UserId, 2),
+	(@Cards, @UserId, 3);
+
+	INSERT INTO Accounts (Name, Balance, AccountTypeId )
+	SELECT Name, 0, Id
+	FROM AccountTypes
+	WHERE UserId = @UserId;
+
+	INSERT INTO Categories (Name, OperationTypeId, UserId)
+	VALUES
+	('Pasajes', 2, @UserId),
+	('Salario', 1, @UserId),
+	('Ventas', 1, @UserId),
+	('Mercado', 2, @UserId)
+END

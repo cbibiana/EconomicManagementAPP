@@ -6,7 +6,7 @@ namespace EconomicManagementAPP.Validations
     {
         protected override ValidationResult IsValid(Object value, ValidationContext validationContext) 
         { 
-            // eliminar
+            
             if (value == null || string.IsNullOrEmpty(value.ToString()))
             {
                 return ValidationResult.Success;

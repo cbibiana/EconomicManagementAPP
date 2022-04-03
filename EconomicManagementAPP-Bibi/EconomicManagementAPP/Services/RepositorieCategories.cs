@@ -26,7 +26,7 @@ namespace EconomicManagementAPP.Services
         public async Task Create(Categories categories)
         {
             using var connection = new SqlConnection(connectionString);
-            var id = await connection.QuerySingleAsync<int>($@"INSERT INTO Categories 
+            var id = await connection.QuerySingleAsync<int>(@"INSERT INTO Categories 
                                                 (Name, OperationTypeId, UserId) 
                                                 VALUES (@Name, @OperationTypeId, @UserId); 
                                                 SELECT SCOPE_IDENTITY();", categories);

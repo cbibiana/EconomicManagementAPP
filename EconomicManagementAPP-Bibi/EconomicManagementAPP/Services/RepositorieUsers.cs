@@ -22,12 +22,15 @@ namespace EconomicManagementAPP.Services
         public async Task<int> CreateUsers(Users users)
         {
             using var connection = new SqlConnection(connectionString);
-            var id = await connection.QuerySingleAsync<int>($@"INSERT INTO Users 
+            var userId = await connection.QuerySingleAsync<int>($@"INSERT INTO Users 
                                                 (Email, StandarEmail, Password) 
                                                 VALUES (@Email, @StandarEmail, @Password);
                                                  SELECT SCOPE_IDENTITY();", users);
 
-            return id;
+            await connection.ExecuteAsync("UsersNew_Insertar", new { userId },
+                commandType: System.Data.CommandType.StoredProcedure);
+
+            return userId;
         }
 
         public async Task<Users> getUserByEmail(string standarEmail)
